@@ -1,17 +1,19 @@
 const express = require("express");
-const data = require("./data");
 
-const app = express();
+const carsRoutes = require("./routes/cars"); // Routes
 
-app.listen(8000, () => {
-  console.log("The application is running on localhost:8000");
-});
+const app = express(); // Create App instance
+
+app.use(express.json()); // gives you acces to the req.body as JSON
+
+app.use("/cars", carsRoutes); // Routes
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello World" });
 });
 
-app.get("/cars", (req, res) => {
-  console.log(data);
-  res.json(data);
-});
+const PORT = 8000;
+
+app.listen(PORT, () =>
+  console.log(`The application runs on localhost:${PORT}`)
+);
